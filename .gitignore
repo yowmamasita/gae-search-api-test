@@ -1,0 +1,6 @@
+*.pyc
+ds
+*.coverage
+*~
+.appengine_data
+.idea
