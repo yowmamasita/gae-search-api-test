@@ -13,3 +13,5 @@ Visit `/api/posts/clear_db` to clear index
 Visit `/api/posts/search?query=<search-query>` to search
 
 e.g. `/api/posts/search?query=Jackfruit` should return a single `Post` entity
+
+Visit `/api/posts/verify` to run a series of assertion tests
