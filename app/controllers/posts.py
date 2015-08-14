@@ -15,42 +15,31 @@ class Posts(Controller):
 
     @route_with('/api/posts/verify')
     def api_verify(self):
-        # case 1: query = test
-        try:
-            results = self.components.search(query="test")
-            assert len(results) == 5
-        except:
-            raise Exception("Case: query = test, failed")
+        # case 1: query = test, limit = 4
+        results = self.components.search(query="test", limit=4)
+        assert len(results) == 4
 
         # case 2: query = APPLE
-        try:
-            results = self.components.search(query="APPLE")
-            assert len(results) == 1
-        except:
-            raise Exception("Case: query = APPLE, failed")
+        results = self.components.search(query="APPLE")
+        assert len(results) == 1
 
         # case 3: query = carrot
-        try:
-            results = self.components.search(query="carrot")
-            assert len(results) == 1
-        except:
-            raise Exception("Case: query = carrot, failed")
+        results = self.components.search(query="carrot")
+        assert len(results) == 1
 
-        # case 4: query = Hello, World!
-        try:
-            results = self.components.search(query="Hello World")
-            assert len(results) == 5
-        except:
-            raise Exception("Case: query = Hello, World!, failed")
+        # case 4: query = Hello World, sorted by title in asc order
+        results = self.components.search(query="Hello World", sort_field='title', sort_direction='asc')
+        assert len(results) == 5
+        assert 'Banana' in results[0].title
+        assert 'apple' in results[4].title
 
-        # case 5: query = Lorem
-        try:
-            results = self.components.search(query="lorem")
-            assert len(results) == 3
-        except:
-            raise Exception("Case: query = Lorem, failed")
+        # case 5: query = Lorem, sorted by title in desc order
+        results = self.components.search(query="lorem", sort_field='title', sort_direction='desc')
+        assert len(results) == 3
+        assert 'Zebra' in results[0].title
+        assert 'CARROT' in results[2].title
 
-        return 200
+        return "All tests passed"
 
     @route_with('/api/posts/prime_db')
     def api_prime_db(self):
